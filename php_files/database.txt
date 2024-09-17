@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>database insertion</title>
+</head>
+<body>
+    <form action="database.php" method="POST">
+        Book ID : <input type="text" name="bookid"><br><br>
+        Name of the book : <input type="text" name="bookname"><br><br>
+        <button type=submit>Submit</button>
+    </form>
+
+
+    <?php
+    //connecting to database
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+
+    //connected to database
+    $conn = mysqli_connect($servername, $username, $password); 
+    // 3 arguments - server name , username , password 
+
+    $sql = "CREATE DATABASE IF NOT EXISTS library"; 
+
+    // die if connection was not successful
+    if ($conn) {    
+        echo "<br>Connected successfully...!!";
+    }
+    else {
+        die("Connection failed: ".mysqli_connect_error());
+        //  die ( " message to be displayed " . mysqli_connect_error()  );  
+    }
+
+    if(mysqli_query($conn,$sql)){ // argumnts are connection and query.
+        echo "<h2>Database created Successfully</h2>";
+    }else{
+        echo "Error creating database: " . mysqli_error($conn);
+    }
+
+    mysqli_select_db($conn, $sql);
+
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+        $bid = isset($_POST['bookid']) ? $_POST['bookid'] : '';
+        $bname = isset($_POST['bookname']) ? $_POST['bookname'] : '';
+
+        $ins_qury = "insert into library values(" . $bid . "," . $bname . ");";
+        if(mysqli_query($conn , $ins_qury)){
+            echo "Data inserted Successfully";
+        }
+        else {
+            echo "Failed to insert data.";
+        }
+    }
+?>
+
+</body>
+</html>

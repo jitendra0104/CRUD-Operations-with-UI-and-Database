@@ -1,0 +1,16 @@
+<?php
+
+$name = 'jitendra sai prasad';
+$number = 573;
+
+echo "name: $name <br> number: $number <br>";
+echo '<h1>this is a h1 tag</h1>';
+echo '<div style="display: flex;">
+        <div>
+            <pre>this is a div tag inside a flex container              </pre>
+        </div>
+        <div>
+        <pre>this is another div tag inside the flex container       </pre>
+        </div>
+      </div>';
+?>
